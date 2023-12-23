@@ -10,10 +10,14 @@ export default function TodosPage() {
      setTodos(todos.todos);
     });
   },[])
+  const [isTodoLoading, setIsTodoLoading] = useState(false);
+  const [isDeleteLoading, setIsDeleteLoading] = useState();
+  const DeleteItem = async ({id}) => {
+    setIsDeleteLoading(id);
+    setIsTodoLoading(true);
+    const newTodos = await deleteTodo({id});
+    setIsTodoLoading(false);
 
-  const DeleteItem = async (id) => {
-    
-    const newTodos = await deleteTodo(id);
     setTodos(newTodos.todos);
   }
 
@@ -24,7 +28,7 @@ export default function TodosPage() {
       <ul>
         {todos.map((todo) => {
           return <li key={todo.id}>{todo.text}<br></br>
-          <button onClick={() => DeleteItem({id: todo.id})}>Удалить</button>
+          <button disabled={isDeleteLoading === todo.id} onClick={() => DeleteItem({id: todo.id})}>{ ( isTodoLoading && isDeleteLoading === todo.id) ? "Задача удаляется" : "Удалить" }</button>
           </li>;
         })}
       </ul>
