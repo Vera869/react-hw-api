@@ -12,19 +12,25 @@ export default function TodosPage() {
   },[])
   const [isTodoLoading, setIsTodoLoading] = useState(false);
   const [isDeleteLoading, setIsDeleteLoading] = useState();
-  const DeleteItem = async ({id}) => {
-    setIsDeleteLoading(id);
-    setIsTodoLoading(true);
-    const newTodos = await deleteTodo({id});
-    setIsTodoLoading(false);
+  const [addDeleteError, setAddDeleteError] = useState(null);
 
-    setTodos(newTodos.todos);
+  const DeleteItem = async ({id}) => {
+    try{
+      setIsDeleteLoading(id);
+      setIsTodoLoading(true);
+      const newTodos = await deleteTodo({id});
+      setTodos(newTodos.todos);
+    } catch (error) {
+      setAddDeleteError(error.message)
+    } finally {
+      setIsTodoLoading(false);
+    }
   }
 
   return (
     <div className="page">
       <h1>Список задач</h1>
-
+      <p style={{color: "red"}}>{addDeleteError}</p>
       <ul>
         {todos.map((todo) => {
           return <li key={todo.id}>{todo.text}<br></br>
