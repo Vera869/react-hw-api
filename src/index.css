@@ -28,3 +28,6 @@ code {
   text-decoration: underline;
   background-color: rgba(6, 178, 6, 0.582);
 }
+.nav-block {
+  margin: 20px;
+}

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { deleteTodo} from "../api";
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
 
 export default function TodosPage({todos, setTodos, setcurrentTodo}) {
 
@@ -25,13 +25,6 @@ export default function TodosPage({todos, setTodos, setcurrentTodo}) {
 
   return (
    <div className="page">
-      <h3>Навигация</h3>
-      <Link style={{color: "green"}} to="/">Задачи</Link>
-      <br />
-      <Link style={{color: "green"}} to="/add">Добавить задачу</Link>
-      <br />
-      <Link style={{color: "green"}} to="/about">О проекте</Link>
-      <br />
 
       <h1>Список задач</h1>
       <p style={{color: "red"}}>{addDeleteError}</p>
