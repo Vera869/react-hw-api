@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom';
 export function AddTodoPage({setTodos, addGetTodosError}) {
    return (
     <div className="page">
-      <div className="current-task">Текущая задача:</div>
       <h2>Навигация</h2>
       <Link style={{color: "green"}} to="/">Задачи</Link>
       <br />

@@ -6,6 +6,7 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [addGetTodosError, setAddGetTodosError] = useState(null);
 
+  const [currentTodo, setcurrentTodo] = useState(null);
   useEffect(() => {
      getTodos().then((todos) => {
      setTodos(todos.todos);
@@ -14,7 +15,10 @@ function App() {
       setTodos([]);
     })
   },[])
-  return <AppRoutes todos={todos} setTodos={setTodos} addGetTodosError={addGetTodosError}></AppRoutes>;
+  return <>
+          {currentTodo ? (<div className="current-task">Текущая задача: {currentTodo.text}</div>) : null}
+          <AppRoutes todos={todos} setTodos={setTodos} addGetTodosError={addGetTodosError} currentTodo={currentTodo} setcurrentTodo={setcurrentTodo}></AppRoutes>;
+        </>
 }
 
 export default App;

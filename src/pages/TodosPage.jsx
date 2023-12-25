@@ -2,11 +2,13 @@ import { useState } from "react";
 import { deleteTodo} from "../api";
 import {Link} from 'react-router-dom'
 
-export default function TodosPage({todos, setTodos}) {
+export default function TodosPage({todos, setTodos, setcurrentTodo}) {
+
   
   const [isTodoLoading, setIsTodoLoading] = useState(false);
   const [isDeleteLoading, setIsDeleteLoading] = useState();
   const [addDeleteError, setAddDeleteError] = useState(null);
+
 
   const DeleteItem = async ({id}) => {
     try{
@@ -23,8 +25,6 @@ export default function TodosPage({todos, setTodos}) {
 
   return (
    <div className="page">
-      <div className="current-task">Текущая задача:</div>
-      <br />
       <h3>Навигация</h3>
       <Link style={{color: "green"}} to="/">Задачи</Link>
       <br />
@@ -37,7 +37,7 @@ export default function TodosPage({todos, setTodos}) {
       <p style={{color: "red"}}>{addDeleteError}</p>
       <ul>
         {todos.map((todo) => {
-          return <li key={todo.id}>{todo.text}<br></br>
+          return <li onClick={() => setcurrentTodo(todo)} className="todo-item" key={todo.id}>{todo.text}<br></br>
           <button disabled={isDeleteLoading === todo.id} 
             onClick={() => DeleteItem({id: todo.id})}>
               { ( isTodoLoading && isDeleteLoading === todo.id) ?

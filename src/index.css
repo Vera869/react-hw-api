@@ -20,3 +20,11 @@ code {
   font-weight: 600;
   background-color: green;
 }
+.todo-item {
+  cursor: pointer;
+ 
+}
+.todo-item:hover {
+  text-decoration: underline;
+  background-color: rgba(6, 178, 6, 0.582);
+}
