@@ -15,3 +15,8 @@ code {
 .page {
   padding: 10px 20px;
 }
+.current-task {
+  font-size: 32px;
+  font-weight: 600;
+  background-color: green;
+}

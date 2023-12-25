@@ -1,19 +1,9 @@
-import { useEffect, useState } from "react";
-import { AddTodoForm } from "../components/AddTodoForm";
-import { deleteTodo, getTodos } from "../api";
+import { useState } from "react";
+import { deleteTodo} from "../api";
+import {Link} from 'react-router-dom'
 
-export default function TodosPage() {
-  const [todos, setTodos] = useState([]);
-  const [addGetTodosError, setAddGetTodosError] = useState(null);
-
-  useEffect(() => {
-     getTodos().then((todos) => {
-     setTodos(todos.todos);
-    }).catch((error) => {
-      setAddGetTodosError(error.message);
-      setTodos([]);
-    })
-  },[])
+export default function TodosPage({todos, setTodos}) {
+  
   const [isTodoLoading, setIsTodoLoading] = useState(false);
   const [isDeleteLoading, setIsDeleteLoading] = useState();
   const [addDeleteError, setAddDeleteError] = useState(null);
@@ -32,19 +22,29 @@ export default function TodosPage() {
   }
 
   return (
-    <div className="page">
-      <p style={{color: "red"}}>{addGetTodosError}</p>
+   <div className="page">
+      <div className="current-task">Текущая задача:</div>
+      <br />
+      <h3>Навигация</h3>
+      <Link style={{color: "green"}} to="/">Задачи</Link>
+      <br />
+      <Link style={{color: "green"}} to="/add">Добавить задачу</Link>
+      <br />
+      <Link style={{color: "green"}} to="/about">О проекте</Link>
+      <br />
+
       <h1>Список задач</h1>
       <p style={{color: "red"}}>{addDeleteError}</p>
       <ul>
         {todos.map((todo) => {
           return <li key={todo.id}>{todo.text}<br></br>
-          <button disabled={isDeleteLoading === todo.id} onClick={() => DeleteItem({id: todo.id})}>{ ( isTodoLoading && isDeleteLoading === todo.id) ? "Задача удаляется" : "Удалить" }</button>
+          <button disabled={isDeleteLoading === todo.id} 
+            onClick={() => DeleteItem({id: todo.id})}>
+              { ( isTodoLoading && isDeleteLoading === todo.id) ?
+               "Задача удаляется" : "Удалить" }</button>
           </li>;
         })}
       </ul>
-
-      <AddTodoForm todos={todos} setTodos={setTodos} />
     </div>
   );
 }
